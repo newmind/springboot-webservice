@@ -14,7 +14,7 @@ echo "> 프로젝트 Build 시작"
 
 echo "> Build 파일 복사"
 
-cp ./build/libs/*.jar $REPOSITORY/
+cp ./build/libs/*.jar ${REPOSITORY}/
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
@@ -32,7 +32,7 @@ fi
 
 echo "> 새 어플리케이션 배포"
 
-JAR_NAME=$(ls $REPOSITORY/ |grep 'spring-webservice' | tail -n 1)
+JAR_NAME=$(ls -tr ${REPOSITORY}/ |grep 'spring-webservice' | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
