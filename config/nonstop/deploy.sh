@@ -1,6 +1,6 @@
 #!/bin/bash
 BASE_PATH=/home/ec2-user/app/nonstop
-BUILD_PATH=$(ls $BASE_PATH/springboot-webservice/build/libs/*.jar)
+BUILD_PATH=$(ls -tr $BASE_PATH/springboot-webservice/build/libs/*.jar)
 JAR_NAME=$(basename $BUILD_PATH)
 echo "> build 파일명: $JAR_NAME"
 
@@ -56,6 +56,7 @@ sleep 10
 for retry_count in {1..10}
 do
   response=$(curl -s http://localhost:$IDLE_PORT/actuator/health)
+  echo $response
   up_count=$(echo $response | grep 'UP' | wc -l)
 
   if [ $up_count -ge 1 ]
@@ -77,3 +78,7 @@ do
   echo "> Health check 연결 실패. 재시도..."
   sleep 10
 done
+
+echo "> 스위칭"
+sleep 10
+/home/ec2-user/app/nonstop/switch.sh
